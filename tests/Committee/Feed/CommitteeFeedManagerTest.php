@@ -66,7 +66,7 @@ class CommitteeFeedManagerTest extends WebTestCase
         $this->assertCountMails(0, CommitteeMessageNotificationMessage::class, 'carl999@example.fr');
     }
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->init();
 
@@ -78,7 +78,7 @@ class CommitteeFeedManagerTest extends WebTestCase
         parent::setUp();
     }
 
-    public function tearDown()
+    protected function tearDown(): void
     {
         $this->kill();
 

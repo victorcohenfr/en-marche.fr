@@ -640,7 +640,7 @@ class CommitteeManagerControllerTest extends WebTestCase
         return $array;
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -651,7 +651,7 @@ class CommitteeManagerControllerTest extends WebTestCase
         $this->committeeMembershipRepository = $this->getCommitteeMembershipRepository();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->kill();
 

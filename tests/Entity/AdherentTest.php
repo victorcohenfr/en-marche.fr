@@ -10,6 +10,7 @@ use App\Entity\CitizenProjectMembership;
 use App\Entity\CommitteeMembership;
 use App\Entity\PostAddress;
 use App\Entity\ReferentTag;
+use App\Exception\AdherentAlreadyEnabledException;
 use App\Geocoder\Coordinates;
 use App\Membership\ActivityPositions;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -88,11 +89,9 @@ class AdherentTest extends TestCase
         $this->assertInstanceOf(\DateTime::class, $activationToken->getUsageDate());
     }
 
-    /**
-     * @expectedException \App\Exception\AdherentAlreadyEnabledException
-     */
     public function testActivateAdherentAccountTwice(): void
     {
+        $this->expectException(AdherentAlreadyEnabledException::class);
         $adherent = $this->createAdherent();
         $activationToken = AdherentActivationToken::generate($adherent);
 
@@ -207,7 +206,7 @@ class AdherentTest extends TestCase
         );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->cleanupContainer($this->container);
 
