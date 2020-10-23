@@ -15,6 +15,7 @@ use App\Entity\BoardMember\BoardMember;
 use App\Entity\CommitteeElection;
 use App\Entity\CoordinatorManagedArea;
 use App\Entity\LreArea;
+use App\Entity\ManagedArea\TdlDepartmentalCandidateManagedArea;
 use App\Entity\MunicipalChiefManagedArea;
 use App\Entity\MunicipalManagerRoleAssociation;
 use App\Entity\MunicipalManagerSupervisorRole;
@@ -476,6 +477,10 @@ class LoadAdherentData extends AbstractFixture implements ContainerAwareInterfac
             -1.6743,
             48.112
         );
+        $tdlArea = new TdlDepartmentalCandidateManagedArea();
+        $tdlArea->addReferentTag($this->getReference('referent_tag_77'));
+        $tdlArea->addReferentTag($this->getReference('referent_tag_92'));
+        $referent->setTdlDepartmentalCandidateManagedArea($tdlArea);
         $roles = new ArrayCollection();
         $roles->add($this->getReference('referent'));
         $referent->setBoardMember(BoardMember::AREA_FRANCE_METROPOLITAN, $roles);

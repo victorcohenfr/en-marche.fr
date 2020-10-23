@@ -9,6 +9,7 @@ use App\ManagedUsers\ManagedUsersFilter;
 use App\Repository\PaginatorTrait;
 use App\Repository\ReferentTagRepository;
 use App\Repository\ReferentTrait;
+use App\Subscription\SubscriptionTypeEnum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\Expr\Andx;
@@ -238,6 +239,18 @@ class ManagedUserRepository extends ServiceEntityRepository
             $qb
                 ->andWhere($subscriptionTypesCondition)
                 ->setParameter('subscription_type', $filter->getSubscriptionType())
+            ;
+        }
+
+        if (null !== $filter->getSmsSubscription()) {
+            $subscriptionTypesCondition = 'FIND_IN_SET(:sms_subscription_type, u.subscriptionTypes) > 0';
+            if (false === $filter->getSmsSubscription()) {
+                $subscriptionTypesCondition = '(FIND_IN_SET(:sms_subscription_type, u.subscriptionTypes) = 0 OR u.subscriptionTypes IS NULL)';
+            }
+
+            $qb
+                ->andWhere($subscriptionTypesCondition)
+                ->setParameter('sms_subscription_type', SubscriptionTypeEnum::MILITANT_ACTION_SMS)
             ;
         }
 

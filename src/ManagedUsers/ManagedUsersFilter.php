@@ -100,6 +100,11 @@ class ManagedUsersFilter
     private $emailSubscription;
 
     /**
+     * @var bool|null
+     */
+    private $smsSubscription;
+
+    /**
      * @var string|null
      */
     private $subscriptionType;
@@ -333,6 +338,16 @@ class ManagedUsersFilter
     public function setEmailSubscription(?bool $emailSubscription): void
     {
         $this->emailSubscription = $emailSubscription;
+    }
+
+    public function getSmsSubscription(): ?bool
+    {
+        return $this->smsSubscription;
+    }
+
+    public function setSmsSubscription(?bool $smsSubscription): void
+    {
+        $this->smsSubscription = $smsSubscription;
     }
 
     public function getVoteInCommittee(): ?bool

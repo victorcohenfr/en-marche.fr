@@ -2,7 +2,7 @@
 
 namespace App\Entity\ManagedArea;
 
-use App\Entity\ReferentTag;
+use App\Entity\EntityReferentTagTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class ManagedArea
 {
+    use EntityReferentTagTrait;
+
     /**
      * @var int|null
      *
@@ -39,7 +41,7 @@ abstract class ManagedArea
      *     }
      * )
      */
-    private $referentTags;
+    protected $referentTags;
 
     public function __construct()
     {
@@ -49,22 +51,5 @@ abstract class ManagedArea
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getReferentTags(): iterable
-    {
-        return $this->referentTags;
-    }
-
-    public function addReferentTag(ReferentTag $tag): void
-    {
-        if (!$this->referentTags->contains($tag)) {
-            $this->referentTags->add($tag);
-        }
-    }
-
-    public function removeReferentTag(ReferentTag $tag): void
-    {
-        $this->referentTags->removeElement($tag);
     }
 }

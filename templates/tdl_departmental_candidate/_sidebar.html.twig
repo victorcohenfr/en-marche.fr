@@ -1,0 +1,18 @@
+{% if isTdlDepartmentalCandidate or is_granted('HAS_DELEGATED_ACCESS_ANY') %}
+{% set delegated_access_uuid = app.request.attributes.get('delegated_access_uuid') %}
+<nav class="manager-sidebar__menu">
+    {% if app.user is not same as(currentUserOrDelegator) %}
+        <p class="manager-sidebar__text text--body">Vous êtes <span class="text--black">{{ delegated_access.role|lower }}</span> du TDL départementale <span class="text--black">{{ currentUserOrDelegator }}</span></p>
+    {% endif %}
+
+    <ul>
+        <li class="menu-section">Territoires</li>
+
+        {% if isTdlDepartmentalCandidate or is_granted('HAS_DELEGATED_ACCESS_ADHERENTS') %}
+            <li class="{{ is_active_route(app.request, ['app_tdl_departmental_candidate_managed_users_list', 'app_tdl_departmental_candidate_adherent_invitation']) ? 'active' }}">
+                <a href="{{ path('app_tdl_departmental_candidate_managed_users_list') }}">Adhérents</a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
