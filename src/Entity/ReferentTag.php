@@ -180,4 +180,9 @@ class ReferentTag
     {
         return $this->zone;
     }
+
+    public function setZone(Zone $zone): void
+    {
+        $this->zone = $zone;
+    }
 }
