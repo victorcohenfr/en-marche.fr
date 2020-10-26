@@ -49,6 +49,7 @@ class LoadTerritorialCouncilData extends Fixture
     {
         return [
             LoadReferentData::class,
+            LoadReferentTagData::class,
         ];
     }
 }
