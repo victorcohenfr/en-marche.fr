@@ -9,6 +9,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadPoliticalCommitteeData extends Fixture
 {
+    private const ACTIVE_DEPARTMENTS = [
+        '75', // Paris
+        '77', // Seine-et-Marne
+    ];
+
     public function load(ObjectManager $manager): void
     {
         $terCos = $manager->getRepository(TerritorialCouncil::class)->findAll();
@@ -26,7 +31,7 @@ class LoadPoliticalCommitteeData extends Fixture
     private function determineShouldBeActive(PoliticalCommittee $coPol): bool
     {
         foreach ($coPol->getTerritorialCouncil()->getReferentTags() as $referentTag) {
-            if ($referentTag->isDepartmentTag() && 75 === $referentTag->getCode()) {
+            if ($referentTag->isDepartmentTag() && \in_array($referentTag->getCode(), self::ACTIVE_DEPARTMENTS, true)) {
                 return true;
             }
         }
